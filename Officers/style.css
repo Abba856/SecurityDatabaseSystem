@@ -1,0 +1,313 @@
+/* Modernized CSS for Officer Management System */
+
+/* Base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: url('../log_back.png');
+    background-color: #f0f2f5;
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Container styles */
+.container {
+    position: relative;
+    max-width: 1200px;
+    margin: 20px auto;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    padding: 20px;
+}
+
+.finaldiv {
+    width: 100%;
+}
+
+/* Header styles */
+.head1, .head2 {
+    height: 80px;
+}
+
+.head1 {
+    float: left;
+}
+
+.head2 {
+    float: right;
+}
+
+.head_txt {
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    padding: 15px 0;
+    display: block;
+    clear: both;
+}
+
+/* Navigation styles */
+.navbar {
+    background: linear-gradient(to right, #2c3e50, #4a6fa5);
+    border-radius: 8px;
+    padding: 10px 0;
+    margin: 20px 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.navbar ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.navbar li {
+    margin: 0 15px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.navbar a:hover, .navbar a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Form styles */
+#crimeInfo {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    max-width: 800px;
+}
+
+#crimeInfo input, #crimeInfo select, #crimeInfo textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#crimeInfo input:focus, #crimeInfo select:focus, #crimeInfo textarea:focus {
+    outline: none;
+    border-color: #4a6fa5;
+    box-shadow: 0 0 8px rgba(74, 111, 165, 0.3);
+}
+
+input[type="radio"] {
+    width: auto;
+    margin-right: 8px;
+}
+
+/* Button styles */
+.submitBtn, .submitBtn1 {
+    background: linear-gradient(to right, #4a6fa5, #2c3e50);
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: none;
+    border-radius: 8px;
+    height: 45px;
+    width: 150px;
+    cursor: pointer;
+    margin: 20px auto;
+    display: block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.submitBtn:hover, .submitBtn1:hover {
+    background: linear-gradient(to right, #2c3e50, #4a6fa5);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+/* Logout button */
+button[name="logout"] {
+    background: linear-gradient(to right, #e74c3c, #c0392b);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin: 10px;
+    cursor: pointer;
+    float: right;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+button[name="logout"]:hover {
+    background: linear-gradient(to right, #c0392b, #e74c3c);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+button[name="logout"] a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Search styles */
+.searchGroup {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.searchBar {
+    height: 45px;
+    width: 400px;
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.searchBar:focus {
+    outline: none;
+    border-color: #4a6fa5;
+    box-shadow: 0 0 10px rgba(74, 111, 165, 0.5);
+}
+
+.searchBtn {
+    height: 45px;
+    width: 60px;
+    border: none;
+    background: #4a6fa5;
+    border-radius: 0 25px 25px 0;
+    cursor: pointer;
+    margin-left: -5px;
+    position: relative;
+    left: -40px;
+    color: white;
+    font-weight: bold;
+}
+
+.searchBtn:hover {
+    background: #2c3e50;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: linear-gradient(to bottom, #2c3e50, #4a6fa5);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+tr:hover {
+    background-color: #e9f7fe;
+}
+
+/* Link styles */
+a {
+    text-decoration: none;
+    color: #4a6fa5;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #2c3e50;
+    text-decoration: underline;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .head_txt {
+        font-size: 1.8rem;
+    }
+    
+    #crimeInfo {
+        padding: 20px;
+        margin: 20px 10px;
+    }
+    
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .navbar li {
+        margin: 5px 0;
+    }
+    
+    .searchBar {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .searchBtn {
+        position: static;
+        width: 100%;
+        border-radius: 25px;
+        margin-top: 10px;
+    }
+    
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    th, td {
+        min-width: 100px;
+    }
+}
