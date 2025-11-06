@@ -19,7 +19,7 @@
       </div>
       <nav class="navbar">
          <ul class="nav-links">
-            <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="home.php"><i class="fas fa-info-circle"></i> Information</a></li>
             <li><a href="search.php"><i class="fas fa-search"></i> Search</a></li>
             <li><a href="offList.php"><i class="fas fa-users"></i> Officers</a></li>
             <li><a href="analysis.php" class="active"><i class="fas fa-chart-bar"></i> Analytics</a></li>

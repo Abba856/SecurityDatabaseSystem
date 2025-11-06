@@ -29,39 +29,69 @@
             $_SESSION['user_role'] = $user_role; // Store user role in session
             $_SESSION['login_time'] = time(); // Prevent session fixation
             
-            header("location: Officers/addOfficer.php");
+            header("location: Officers/addOfficer.php"); // Redirect to the Officers management page
             exit();
          } else {
-            echo "<script>alert('Invalid Username or Password')</script>";
+            $error = "Invalid Username or Password";
          }
       } else {
-         echo "<script>alert('Invalid Username or Password')</script>";
+         $error = "Invalid Username or Password";
       }
       mysqli_stmt_close($stmt);
    }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'> <meta http-equiv='X-UA-Compatible' content='IE=edge'> <title>Login</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Security Database System - Officer Management Login</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="new_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div id="box1">
-        <span id="sp1"><img src="logo.jpg"  width="15%"></span>
-        <br>
-        <br>
-        <form method="post">
-            Username
-            <br> 
-            <input type="text" class="inp" name="uname" required>
-            <br>
-            <br>
-            Password 
-            <br>
-            <input type="password" class="inp" name="pass" required>
-            <div class="btn_div"><button type="submit" class="btn">Login</button></div>
-        </form>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Security Database System Logo" class="logo">
+            <h1 class="site-title">Security Database System</h1>
+        </div>
+    </header>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2><i class="fas fa-user-tie"></i> Officer Management Login</h2>
+                <p>Access to police officer records</p>
+            </div>
+            
+            <div class="login-body">
+                <?php if(isset($error)): ?>
+                    <div class="error text-center mb-20"><?php echo $error; ?></div>
+                <?php endif; ?>
+                
+                <form method="post">
+                    <div class="form-group">
+                        <label for="uname" class="form-label"><i class="fas fa-user"></i> Username</label>
+                        <input type="text" class="form-control" name="uname" id="uname" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pass" class="form-label"><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" class="form-control" name="pass" id="pass" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-block login-btn" style="background: linear-gradient(to right, #27ae60, #2ecc71);">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+                
+                <div class="mt-20 text-center">
+                    <a href="index.php"><i class="fas fa-arrow-left"></i> Back to Main Menu</a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

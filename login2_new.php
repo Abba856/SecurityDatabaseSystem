@@ -29,7 +29,7 @@
             $_SESSION['user_role'] = $user_role; // Store user role in session
             $_SESSION['login_time'] = time(); // Prevent session fixation
             
-            header("location: home.php");
+            header("location: home.php"); // Redirect to the main home page since there's no Officers/addOfficer.php in the current directory
             exit();
          } else {
             $error = "Invalid Username or Password";
@@ -46,7 +46,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Security Database System - Criminal Records Login</title>
+    <title>Security Database System - Officer Management Login</title>
     <link rel="stylesheet" type="text/css" media="screen" href="new_style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -62,8 +62,8 @@
     <div class="login-container">
         <div class="login-card">
             <div class="login-header">
-                <h2><i class="fas fa-user-lock"></i> Criminal Records Login</h2>
-                <p>Access to criminal records database</p>
+                <h2><i class="fas fa-user-tie"></i> Officer Management Login</h2>
+                <p>Access to police officer records</p>
             </div>
             
             <div class="login-body">
@@ -82,7 +82,9 @@
                         <input type="password" class="form-control" name="pass" id="pass" required>
                     </div>
                     
-                    <button type="submit" class="btn btn-block login-btn"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    <button type="submit" class="btn btn-block login-btn" style="background: linear-gradient(to right, #27ae60, #2ecc71);">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
                 </form>
                 
                 <div class="mt-20 text-center">

@@ -25,17 +25,6 @@
 
    $id=$name=$offName=$crime=$dob=$arrDate=$crimeDate=$sex=$address=$folder=$fname=$more="";
 
-   // Display messages from session if any
-   $message_html = '';
-   if (isset($_SESSION['error_message'])) {
-       $message_html = '<div class="error text-center mb-20"><i class="fas fa-exclamation-circle"></i> ' . $_SESSION['error_message'] . '</div>';
-       unset($_SESSION['error_message']); // Clear the message after displaying
-   }
-   if (isset($_SESSION['success_message'])) {
-       $message_html = '<div class="success text-center mb-20"><i class="fas fa-check-circle"></i> ' . $_SESSION['success_message'] . '</div>';
-       unset($_SESSION['success_message']); // Clear the message after displaying
-   }
-
    if(isset($_POST['submit'])){
        // Database connection
        include("config.php");
@@ -50,80 +39,13 @@
            // Verify file extension
            $ext = pathinfo($filename, PATHINFO_EXTENSION);
            if(!array_key_exists($ext, $allowed)) {
-               $_SESSION['error_message'] = 'Error: Please select a valid image file.';
-               header("Location: " . $_SERVER['PHP_SELF']);
-               exit();
+               echo "<script>alert('Error: Please select a valid image file.');</script>";
            } elseif($filesize > 500000) { // 500KB limit
-               $_SESSION['error_message'] = 'Error: File size is larger than the allowed limit.';
-               header("Location: " . $_SERVER['PHP_SELF']);
-               exit();
+               echo "<script>alert('Error: File size is larger than the allowed limit.');</script>";
            } else {
                // Sanitize filename
                $filename = preg_replace('/[^a-zA-Z0-9._-]/', '_', $filename);
-               
-               // Ensure filename is not empty after sanitization
-               if (empty($filename) || $filename == '.') {
-                   $_SESSION['error_message'] = 'Error: Invalid filename after sanitization.';
-                   header("Location: " . $_SERVER['PHP_SELF']);
-                   exit();
-               }
-               
                $folder = "images/" . $filename;
-               
-               // Use relative path for upload directory
-               $uploadDir = 'images';
-               
-               // Check if images directory exists, if not create it
-               if (!file_exists($uploadDir)) {
-                   if (!mkdir($uploadDir, 0777, true)) {
-                       $_SESSION['error_message'] = 'Error: Unable to create upload directory.';
-                       header("Location: " . $_SERVER['PHP_SELF']);
-                       exit();
-                   }
-               }
-               
-               // Check if file already exists, create unique name if needed
-               $counter = 1;
-               $original_folder = $folder;
-               $path_parts = pathinfo($original_folder);
-               while (file_exists($folder)) {
-                   $folder = $path_parts['dirname'] . '/' . $path_parts['filename'] . '_' . $counter . '.' . $path_parts['extension'];
-                   $counter++;
-                   if ($counter > 100) { // Safety check to avoid infinite loop
-                       $_SESSION['error_message'] = 'Error: Too many files with similar names.';
-                       header("Location: " . $_SERVER['PHP_SELF']);
-                       exit();
-                   }
-               }
-               if (!file_exists($uploadDir)) {
-                   if (!mkdir($uploadDir, 0777, true)) {
-                       $_SESSION['error_message'] = 'Error: Unable to create upload directory.';
-                       header("Location: " . $_SERVER['PHP_SELF']);
-                       exit();
-                   }
-               }
-               
-               // Basic check that directory exists
-               if (!file_exists($uploadDir) || !is_dir($uploadDir)) {
-                   $_SESSION['error_message'] = 'Error: Upload directory does not exist.';
-                   header("Location: " . $_SERVER['PHP_SELF']);
-                   exit();
-               }
-               
-               $folder = $uploadDir . '/' . $filename;
-               
-               // Additional checks before attempting file move
-               if (!file_exists($_FILES['my_img']['tmp_name'])) {
-                   $_SESSION['error_message'] = 'Error: Temporary file does not exist.';
-                   header("Location: " . $_SERVER['PHP_SELF']);
-                   exit();
-               }
-               
-               if (!is_uploaded_file($_FILES['my_img']['tmp_name'])) {
-                   $_SESSION['error_message'] = 'Error: File was not uploaded via HTTP POST.';
-                   header("Location: " . $_SERVER['PHP_SELF']);
-                   exit();
-               }
                
                if(move_uploaded_file($_FILES['my_img']['tmp_name'], $folder)) {
                    // Sanitize input data
@@ -144,9 +66,7 @@
                    $date3 = DateTime::createFromFormat('Y-m-d', $crimeDate);
                    
                    if(!$date1 || !$date2 || !$date3) {
-                       $_SESSION['error_message'] = 'Error: Invalid date format.';
-                       header("Location: " . $_SERVER['PHP_SELF']);
-                       exit();
+                       echo "<script>alert('Error: Invalid date format.');</script>";
                    } else {
                        // Prepared statement to prevent SQL injection
                        $q1 = "INSERT INTO `info`(`id`, `name`, `offname`, `crime`, `dob`, `arrDate`, `crimeDate`, `sex`, `address`,`img`,`more`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -154,32 +74,18 @@
                        mysqli_stmt_bind_param($stmt, "issssssssss", $id, $name, $offName, $crime, $dob, $arrDate, $crimeDate, $sex, $address, $folder, $more);
                        
                        if(mysqli_stmt_execute($stmt)) {
-                           $_SESSION['success_message'] = 'Data Stored Successfully!';
-                           header("Location: " . $_SERVER['PHP_SELF']);
-                           exit();
+                           echo "<script>alert('Data Stored Successfully!');</script>";
                        } else {
-                           $_SESSION['error_message'] = 'Error: ' . mysqli_error($db);
-                           header("Location: " . $_SERVER['PHP_SELF']);
-                           exit();
+                           echo "<script>alert('Error: " . mysqli_error($db) . "');</script>";
                        }
                        mysqli_stmt_close($stmt);
                    }
                } else {
-                   // More specific error message with additional diagnostics
-                   $error_details = [];
-                   $error_details[] = "Temp file exists: " . (file_exists($_FILES['my_img']['tmp_name']) ? 'yes' : 'no');
-                   $error_details[] = "Upload dir exists: " . (file_exists($uploadDir) ? 'yes' : 'no');
-                   $error_details[] = "Upload dir is dir: " . (is_dir($uploadDir) ? 'yes' : 'no');
-                   $error_details[] = "Target path: " . $folder;
-                   $_SESSION['error_message'] = 'Error: There was a problem uploading your file. Details: ' . implode(', ', $error_details);
-                   header("Location: " . $_SERVER['PHP_SELF']);
-                   exit();
+                   echo "<script>alert('Error: There was a problem uploading your file.');</script>";
                }
            }
        } else {
-           $_SESSION['error_message'] = 'Error: Please select an image file.';
-           header("Location: " . $_SERVER['PHP_SELF']);
-           exit();
+           echo "<script>alert('Error: Please select an image file.');</script>";
        }
    }
    ?>
@@ -302,9 +208,7 @@
             <h2 class="card-title"><i class="fas fa-user-injured"></i> Criminal Information Form</h2>
             <p>Add new criminal records to the database</p>
             
-            <?php echo $message_html; ?>
-            
-            <form id="crimeInfo" name="crimeInfo" method="post" enctype="multipart/form-data" class="mt-20">
+            <form id="crimeInfo" method="post" enctype="multipart/form-data" class="mt-20">
                <div class="form-row">
                   <div class="form-col">
                      <div class="form-group">
@@ -379,7 +283,7 @@
                </div>
                
                <div class="text-center mt-20">
-                  <button type="submit" class="btn" onclick="return submitBtn()" value="upload" name="submit">
+                  <button type="submit" class="btn" onclick="submitBtn()" value="upload" name="submit">
                      <i class="fas fa-save"></i> Submit Record
                   </button>
                </div>
